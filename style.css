@@ -1,4 +1,11 @@
-h2 {
+header {
     border: inset;
-    background-color: brown;
+    background-color: rgb(154, 209, 102);
+    padding-bottom: 1.5%;
+    padding-top: 1%;
+    padding-left: 0.5%;
+}
+
+main {
+    padding-left: 0.5%;
 }
