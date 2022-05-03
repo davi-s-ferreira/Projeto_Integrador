@@ -1,11 +1,19 @@
 header {
-    border: inset;
-    background-color: rgb(154, 209, 102);
-    padding-bottom: 1.5%;
+    background-color: #4ed28e;
+    padding-bottom: 0.5%;
     padding-top: 1%;
     padding-left: 0.5%;
+    font-style: oblique;
 }
 
 main {
     padding-left: 0.5%;
+    font-style: italic;
+}
+
+footer {
+    background-color: #4ed28e;
+    padding: 2.5rem;
+    text-align: center;
+    border-top: 1rem solid #4ed28e;
 }
