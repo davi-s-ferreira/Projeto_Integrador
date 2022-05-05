@@ -1,11 +1,22 @@
 <?php
 
-$hostname = "localhost";
-$bancodedados = "projeto_integrador";
-$usuario = "root";
-$senha = "";
+require_include("conexao.php");
 
-$mysqli = new mysqli($hostname, $usuario, $senha, $bancodedados);
-if ($mysqli->connect_errno) {
-    echo "Falha ao conectar: (" . $mysqli->connect_errno . ")" . $mysqli->connect_errno;
-} else echo "conectado!";
+$email=$_POST['email'];
+$senha=$_POST['senha'];
+$cidade=$_POST['cidade'];
+$comentarios=$_POST['comentarios']; 
+
+
+$sql="INSERT INTO cadastro(email,senha,cidade,comentarios) VALUES ('$email','$senha','$cidade','$comentarios')";
+
+if(mysqli_query($conexao,$sql)){
+  echo "Usuário cadastrado com sucesso";
+}
+else{
+  echo "Erro".mysqli_connect_error($conexao);
+}
+
+mysqli_close($conexao);
+
+?>
