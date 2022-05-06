@@ -56,79 +56,72 @@
 
       <div class="nav-scroller py-1 mb-2">
         <nav class="nav d-flex justify-content-between">
-          <a class="p-2 link-secondary" href="index.html">Página Inicial</a>
+          <a class="p-2 link-secondary" href="index.html">Início</a>
+          <a class="p-2 link-secondary" href="Texto.html">Conteúdo</a>
           <a class="p-2 link-secondary" href="legislação.html">Legislação</a>
-          <a class="p-2 link-secondary" href="cadastro.html">Denuncie</a>
+          <a class="p-2 link-secondary" href="denuncie.html">Denuncie</a>
         </nav>
       </div>
     </div>
     <hr>
-    <main>
-      <h2>Denuncie!</h2>
-      <p><strong>Cadastre-se para termos acesso as suas informações e entrarmos em contato.</p>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Endereço de email:</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Digite seu email...">
-        <div id="emailHelp" class="form-text">Nunca compartilharemos seu e-mail com mais ninguém.</div>
-      </div>
 
-      <div class="mb-3">
-        <label for="inputPassword4" class="form-label">Senha:</label>
-        <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Digite sua senha..."
-          minlength="8" maxlength="20">
-        <div id="passwordHelp" class="form-text">Deve ter de 8 a 20 caracteres.</div>
-      </div>
+    <main class="container">
+      <div class="row g-5">
+        <div class="col-md-8">
 
-      <div class="mb-3">
-        <label for="inputCity" class="form-label">Cidade:</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Digite sua cidade...">
-      </div>
+          <article class="blog-post">
+            <h2 class="blog-post-title">Denuncie!</h2>
+            <p class="blog-post-meta">Cadastre-se para termos acesso as suas informações e entrarmos em contato.<a
+                href="#"></a></p>
 
-      <div class="form-floating">
-        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-          style="height: 100px"></textarea>
-        <label for="floatingTextarea2">Comentários</label>
-        <div id="passwordHelp" class="form-text">Especifique sua denúncia, esta mensagem é 100% privada.</div>
-        &nbsp;
-      </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Endereço de email:</label>
+              <input type="email" class="form-control" name="email" id="exampleFormControlInput1"
+                placeholder="Digite seu email...">
+              <div id="emailHelp" class="form-text">Nunca compartilharemos seu e-mail com mais ninguém.</div>
+            </div>
 
-      </div>
-      </div>
+            <div class="mb-3">
+              <label for="inputPassword4" class="form-label">Senha:</label>
+              <input type="password" class="form-control" name="senha" id="exampleFormControlInput1"
+                placeholder="Digite sua senha..." minlength="8" maxlength="20">
+              <div id="passwordHelp" class="form-text">Deve ter de 8 a 20 caracteres.</div>
+            </div>
 
-      <button type="submit" class="btn btn-success">Enviar</button>
-      <input class="btn btn-primary" type="reset" value="Limpar">
-      &nbsp;
-      <hr>
+            <div class="mb-3">
+              <label for="inputCity" class="form-label">Cidade:</label>
+              <input type="text" class="form-control" name="cidade" id="exampleFormControlInput1"
+                placeholder="Digite sua cidade...">
+            </div>
 
-      <strong>
-        <h2>DENUNCIE:</h2>
-      </strong>
-      <p>SUS – Secretaria de Saúde.</p>
-      <p>ANS – Agência Nacional de Saúde</p>
-      <p>Ligue 129.</p>
-      <p> NUDEM – Núcleo Institucional de Promoção e Defesa dos Direitos da Mulher da Defensoria Pública
-        do
-        Estado do Rio de Janeiro. Rua do Ouvidor, nº 90, 4º andar, 129 – Centro, Rio de Janeiro/RJ.
-        Telefone: (21) 2526-8700. Emails: nudem@defensoria.rj.def.br
-      </p>
-      <p>Texto fornecido pela Defensoria Pública do Estado do Rio de Janeiro – NUDEM - NÚCLEO ESPECIAL DE
-        DIREITO DA MULHER E DE VÍTIMAS DE VIOLÊNCIA.</p>
-      <p>O Núcleo Especial de Defesa dos Direitos da Mulher (Nudem) é o órgão da Defensoria Pública do
-        Estado do Rio de Janeiro especializado na promoção e na defesa dos direitos das mulheres em
-        nosso estado.</p>
+            <div class="form-floating">
+              <textarea class="form-control" placeholder="Leave a comment here" name="comentarios"
+                id="floatingTextarea2" style="height: 100px"></textarea>
+              <label for="floatingTextarea2">Comentários</label>
+              <div id="passwordHelp" class="form-text">Especifique sua denúncia, esta mensagem é 100% privada.</div>
+              &nbsp;
+            </div>
+
+            <a class="btn btn-success" href="form.html" role="button">Próximo</a>
+            <input class="btn btn-danger" type="reset" value="Limpar">
+
+          </article>
+        </div>
+      </div>
     </main>
   </form>
-  &nbsp;
+
   <footer class="blog-footer">
     <p>© 2022 - Todos os Direitos Reservados
       <br>
-      Desenvolvido por mim <a href="https://getbootstrap.com/">Bootstrap</a>
+      Desenvolvido pela D.W.D Company <a href="https://getbootstrap.com/">Bootstrap</a>
       <a href="https://twitter.com/mdo">@mdo</a>.
     </p>
     <p>
       <a href="denuncie.html">voltar ao topo</a>
     </p>
   </footer>
+
 </body>
 
 </html>
