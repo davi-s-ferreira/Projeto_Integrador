@@ -1,3 +1,44 @@
+<?php
+
+require_once $_SERVER['DOCUMENT_ROOT'] . "_confg.php";
+
+$form = [
+  "email" => '',
+  "senha" => '',
+  "cidade" => '',
+  "comentario" => ''
+];
+
+if (isset($_POST['send'])) :
+
+  $form['email'] = sanitize('email', 'email');
+  $form['senha'] = sanitize('senha', 'string');
+  $form['cidade'] = sanitize('cidade', 'string');
+  $form['comentario'] = sanitize('comentario', 'string');
+
+  $sql = <<<SQL
+
+INSERT INTO denuncia (
+  denuncia_email,
+  denuncia_senha,
+  denuncia_cidade,
+  denuncia_comentario
+) VALUES (
+  '{$form['email']}',
+  '{$form['senha']}',
+  '{$form['cidade']}',
+  '{$form['comentario']}'
+
+);
+
+SQL;
+
+  $conn->query($sql);
+
+endif; // if (isset($_POST['send']))
+?>
+
+
 <!doctype html>
 <html lang="pt-BR">
 
@@ -74,36 +115,39 @@
             <p class="blog-post-meta">Cadastre-se para termos acesso as suas informações e entrarmos em contato.<a
                 href="#"></a></p>
 
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Endereço de email:</label>
-              <input type="email" class="form-control" name="email" id="exampleFormControlInput1"
-                placeholder="Digite seu email...">
-              <div id="emailHelp" class="form-text">Nunca compartilharemos seu e-mail com mais ninguém.</div>
-            </div>
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
+              <input type="hidden" name="send" value="true">
 
-            <div class="mb-3">
-              <label for="inputPassword4" class="form-label">Senha:</label>
-              <input type="password" class="form-control" name="senha" id="exampleFormControlInput1"
-                placeholder="Digite sua senha..." minlength="8" maxlength="20">
-              <div id="passwordHelp" class="form-text">Deve ter de 8 a 20 caracteres.</div>
-            </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Endereço de email:</label>
+                <input type="email" class="form-control" name="email" id="exampleFormControlInput1"
+                  placeholder="Digite seu email...">
+                <div id="emailHelp" class="form-text">Nunca compartilharemos seu e-mail com mais ninguém.</div>
+              </div>
 
-            <div class="mb-3">
-              <label for="inputCity" class="form-label">Cidade:</label>
-              <input type="text" class="form-control" name="cidade" id="exampleFormControlInput1"
-                placeholder="Digite sua cidade...">
-            </div>
+              <div class="mb-3">
+                <label for="inputPassword4" class="form-label">Senha:</label>
+                <input type="password" class="form-control" name="senha" id="exampleFormControlInput1"
+                  placeholder="Digite sua senha..." minlength="8" maxlength="20">
+                <div id="passwordHelp" class="form-text">Deve ter de 8 a 20 caracteres.</div>
+              </div>
 
-            <div class="form-floating">
-              <textarea class="form-control" placeholder="Leave a comment here" name="comentarios"
-                id="floatingTextarea2" style="height: 100px"></textarea>
-              <label for="floatingTextarea2">Comentários</label>
-              <div id="passwordHelp" class="form-text">Especifique sua denúncia, esta mensagem é 100% privada.</div>
-              &nbsp;
-            </div>
+              <div class="mb-3">
+                <label for="inputCity" class="form-label">Cidade:</label>
+                <input type="text" class="form-control" name="cidade" id="exampleFormControlInput1"
+                  placeholder="Digite sua cidade...">
+              </div>
 
-            <a class="btn btn-success" href="form.html" role="button">Próximo</a>
-            <input class="btn btn-danger" type="reset" value="Limpar">
+              <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" name="comentarios"
+                  id="floatingTextarea2" style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Comentários</label>
+                <div id="passwordHelp" class="form-text">Especifique sua denúncia, esta mensagem é 100% privada.</div>
+                &nbsp;
+              </div>
+
+              <a class="btn btn-success" href="form.html" role="button">Próximo</a>
+              <input class="btn btn-danger" type="reset" value="Limpar">
 
           </article>
         </div>
