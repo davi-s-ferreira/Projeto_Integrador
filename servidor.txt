@@ -1,4 +1,4 @@
-[projetocurso.localhost]
+
 server = 'locahost';
 database = 'usuarios';
 user = 'root';

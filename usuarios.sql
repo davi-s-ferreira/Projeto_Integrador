@@ -13,3 +13,14 @@ CREATE TABLE denuncia (
     denuncia_comentarios VARCHAR(1000) NOT NULL
 );
 
+INSERT INTO denuncia (
+denuncia_email,
+denuncia_senha,
+denuncia_cidade,
+denuncia_comentarios
+) VALUES (
+    "wet@gmail.com",
+    "123456789@",
+    "Rio",
+    "oioioioi"
+);

@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "_confg.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Projeto_Integrador/Projeto_Integrador/_confg.php";
 
 $form = [
   "email" => '',
@@ -11,29 +11,31 @@ $form = [
 
 if (isset($_POST['send'])) :
 
-  $form['email'] = sanitize('email', 'email');
-  $form['senha'] = sanitize('senha', 'string');
-  $form['cidade'] = sanitize('cidade', 'string');
-  $form['comentario'] = sanitize('comentario', 'string');
+    $form['email'] = sanitize('email', 'email');
+    $form['senha'] = sanitize('senha', 'string');
+    $form['cidade'] = sanitize('cidade', 'string');
+    $form['comentario'] = sanitize('comentarios', 'string');
 
-  $sql = <<<SQL
+    $sql = <<<SQL
 
-INSERT INTO denuncia (
-  denuncia_email,
-  denuncia_senha,
-  denuncia_cidade,
-  denuncia_comentario
-) VALUES (
-  '{$form['email']}',
-  '{$form['senha']}',
-  '{$form['cidade']}',
-  '{$form['comentario']}'
+  INSERT INTO denuncia (
+    denuncia_email,
+    denuncia_senha,
+    denuncia_cidade,
+    denuncia_comentarios
+  ) VALUES (
+    '{$form['email']}',
+    '{$form['senha']}',
+    '{$form['cidade']}',
+    '{$form['comentario']}'
 
-);
+  );
 
-SQL;
+  SQL;
 
-  $conn->query($sql);
+    $conn->query($sql);
+
+    debug($sql);
 
 endif; // if (isset($_POST['send']))
 ?>
@@ -50,8 +52,7 @@ endif; // if (isset($_POST['send']))
   <meta name="generator" content="Hugo 0.88.1">
   <link rel="stylesheet" href="style.css">
   <title>Denuncie</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/blog/">
 
@@ -84,7 +85,7 @@ endif; // if (isset($_POST['send']))
 </head>
 
 <body>
-  <form>
+  
 
     <div class="container-fluid p-0 m-0">
       <header class="blog-header py-3">
@@ -112,48 +113,43 @@ endif; // if (isset($_POST['send']))
 
           <article class="blog-post">
             <h2 class="blog-post-title">Denuncie!</h2>
-            <p class="blog-post-meta">Cadastre-se para termos acesso as suas informações e entrarmos em contato.<a
-                href="#"></a></p>
+            <p class="blog-post-meta">Cadastre-se para termos acesso as suas informações e entrarmos em contato.<a href="#"></a></p>
 
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
               <input type="hidden" name="send" value="true">
 
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Endereço de email:</label>
-                <input type="email" class="form-control" name="email" id="exampleFormControlInput1"
-                  placeholder="Digite seu email...">
+                <input type="email" class="form-control" name="email" id="exampleFormControlInput1" placeholder="Digite seu email...">
                 <div id="emailHelp" class="form-text">Nunca compartilharemos seu e-mail com mais ninguém.</div>
               </div>
 
               <div class="mb-3">
                 <label for="inputPassword4" class="form-label">Senha:</label>
-                <input type="password" class="form-control" name="senha" id="exampleFormControlInput1"
-                  placeholder="Digite sua senha..." minlength="8" maxlength="20">
+                <input type="password" class="form-control" name="senha" id="exampleFormControlInput1" placeholder="Digite sua senha..." minlength="8" maxlength="20">
                 <div id="passwordHelp" class="form-text">Deve ter de 8 a 20 caracteres.</div>
               </div>
 
               <div class="mb-3">
                 <label for="inputCity" class="form-label">Cidade:</label>
-                <input type="text" class="form-control" name="cidade" id="exampleFormControlInput1"
-                  placeholder="Digite sua cidade...">
+                <input type="text" class="form-control" name="cidade" id="exampleFormControlInput1" placeholder="Digite sua cidade...">
               </div>
 
               <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" name="comentarios"
-                  id="floatingTextarea2" style="height: 100px"></textarea>
+                <textarea class="form-control" placeholder="Leave a comment here" name="comentarios" id="floatingTextarea2" style="height: 100px"></textarea>
                 <label for="floatingTextarea2">Comentários</label>
                 <div id="passwordHelp" class="form-text">Especifique sua denúncia, esta mensagem é 100% privada.</div>
                 &nbsp;
               </div>
 
-              <a class="btn btn-success" href="form.html" role="button">Próximo</a>
+              <a class="btn btn-success" href="" role="button">Próximo</a>
               <input class="btn btn-danger" type="reset" value="Limpar">
-
+              </form>
           </article>
         </div>
       </div>
     </main>
-  </form>
+  
 
   <footer class="blog-footer">
     <p>© 2022 - Todos os Direitos Reservados
