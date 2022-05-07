@@ -1,43 +1,66 @@
+
 <?php
+require '_confg.php';
+//Acompanha os erros de validação
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/Projeto_Integrador/Projeto_Integrador/_confg.php";
+// Processar so quando tenha uma chamada post
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nomeErro = null;
+    $senhaErro = null;
+    $cidadeErro = null;
+    $emailErro = null;
+    $comentariosErro = null;
 
-$form = [
-  "email" => '',
-  "senha" => '',
-  "cidade" => '',
-  "comentario" => ''
-];
+    if (!empty($_POST)) {
+        $validacao = True;
+        $novoUsuario = False;
+        if (!empty($_POST['cidade'])) {
+            $cidade = $_POST['cidade'];
+        } else {
+            $cidadeErro = 'Por favor digite o seu endereço!';
+            $validacao = False;
+        }
 
-if (isset($_POST['send'])) :
 
-    $form['email'] = sanitize('email', 'email');
-    $form['senha'] = sanitize('senha', 'string');
-    $form['cidade'] = sanitize('cidade', 'string');
-    $form['comentario'] = sanitize('comentarios', 'string');
+        if (!empty($_POST['email'])) {
+            $email = $_POST['email'];
+            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                $emailErro = 'Por favor digite um endereço de email válido!';
+                $validacao = False;
+            }
+        } else {
+            $emailErro = 'Por favor digite um endereço de email!';
+            $validacao = False;
+        }
 
-    $sql = <<<SQL
 
-  INSERT INTO denuncia (
-    denuncia_email,
-    denuncia_senha,
-    denuncia_cidade,
-    denuncia_comentarios
-  ) VALUES (
-    '{$form['email']}',
-    '{$form['senha']}',
-    '{$form['cidade']}',
-    '{$form['comentario']}'
+        if (!empty($_POST['senha'])) {
+            $senha = $_POST['senha'];
+        } else {
+            $senhaErro = 'Por favor digite uma senha!';
+            $validacao = False;
+        }
 
-  );
+        if (!empty($_POST['comentarios'])) {
+            $comentarios = $_POST['comentarios'];
+        } else {
+            $comentariosErro = 'Por favor digite um comentario!';
+            $validacao = False;
+        }
+    }
 
-  SQL;
 
-    $conn->query($sql);
-
-    debug($sql);
-
-endif; // if (isset($_POST['send']))
+//Inserindo no Banco:
+    if ($validacao) {
+        $pdo = Banco::conectar();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "INSERT INTO denuncia (denuncia_email, denuncia_senha, denuncia_cidade, denuncia_comentarios) VALUES(?,?,?,?)";
+        $q = $pdo->prepare($sql);
+        $q->execute(array( $cidade, $email, $senha, $comentarios));
+        Banco::desconectar();
+        header("Location: form.html");
+    }
+}
 ?>
 
 
@@ -115,34 +138,44 @@ endif; // if (isset($_POST['send']))
             <h2 class="blog-post-title">Denuncie!</h2>
             <p class="blog-post-meta">Cadastre-se para termos acesso as suas informações e entrarmos em contato.<a href="#"></a></p>
 
-            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
-              <input type="hidden" name="send" value="true">
+            <form action="denuncie.php" method="post">
 
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Endereço de email:</label>
-                <input type="email" class="form-control" name="email" id="exampleFormControlInput1" placeholder="Digite seu email...">
+                <input type="email" class="form-control" name="email" id="exampleFormControlInput1" placeholder="Digite seu email..." value="<?php echo !empty($email) ? $email : ''; ?>">
+                            <?php if (!empty($emailErro)): ?>
+                                <span class="text-danger"><?php echo $emailErro; ?></span>
+                            <?php endif; ?>
                 <div id="emailHelp" class="form-text">Nunca compartilharemos seu e-mail com mais ninguém.</div>
               </div>
 
               <div class="mb-3">
                 <label for="inputPassword4" class="form-label">Senha:</label>
-                <input type="password" class="form-control" name="senha" id="exampleFormControlInput1" placeholder="Digite sua senha..." minlength="8" maxlength="20">
+                <input type="password" class="form-control" name="senha" id="exampleFormControlInput1" placeholder="Digite sua senha..." minlength="8" maxlength="20" value="<?php echo !empty($senha) ? $senha : ''; ?>">
+                            <?php if (!empty($senhaErro)): ?>
+                                <span class="text-danger"><?php echo $senhaErro; ?></span>
+                            <?php endif; ?>
                 <div id="passwordHelp" class="form-text">Deve ter de 8 a 20 caracteres.</div>
               </div>
 
               <div class="mb-3">
                 <label for="inputCity" class="form-label">Cidade:</label>
-                <input type="text" class="form-control" name="cidade" id="exampleFormControlInput1" placeholder="Digite sua cidade...">
+                <input type="text" class="form-control" name="cidade" id="exampleFormControlInput1" placeholder="Digite sua cidade..." value="<?php echo !empty($cidade) ? $cidade : ''; ?>">
+                            <?php if (!empty($cidadeErro)): ?>
+                                <span class="text-danger"><?php echo $cidadeErro; ?></span>
+                            <?php endif; ?>
               </div>
 
               <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" name="comentarios" id="floatingTextarea2" style="height: 100px"></textarea>
+                <input class="form-control" placeholder="Leave a comment here" name="comentarios" id="floatingTextarea2" style="height: 100px" value="<?php echo !empty($comentarios) ? $comentarios : ''; ?>">
+                            <?php if (!empty($comentariosErro)): ?>
+                                <span class="text-danger"><?php echo $comentariosErro; ?></span>
+                            <?php endif; ?>
                 <label for="floatingTextarea2">Comentários</label>
                 <div id="passwordHelp" class="form-text">Especifique sua denúncia, esta mensagem é 100% privada.</div>
                 &nbsp;
               </div>
-
-              <a class="btn btn-success" href="" role="button">Próximo</a>
+              <button type="submit" class="btn btn-success" role="button">Adicionar</button>
               <input class="btn btn-danger" type="reset" value="Limpar">
               </form>
           </article>

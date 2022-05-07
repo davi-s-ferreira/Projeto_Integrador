@@ -1,7 +1,0 @@
-
-server = 'locahost';
-database = 'usuarios';
-user = 'root';
-password ='';
-
-
